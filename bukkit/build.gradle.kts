@@ -22,3 +22,9 @@ dependencies {
 java {
     toolchain.languageVersion.set(JavaLanguageVersion.of(7))
 }
+
+tasks.shadowJar {
+    relocate("org.json", "com.thatgamerblue.json")
+
+    archiveBaseName = "subauth-" + project.name
+}
