@@ -1,0 +1,12 @@
+main: com.thatgamerblue.subauth.plugin.SubAuthPlugin
+name: SubAuth
+version: 1.0
+description: SubAuth for Twitch account linking
+
+permissions:
+  subauth.bypass:
+    description: allow a user to bypass subauth
+    default: op
+  subauth.admin:
+    description: tells you if subauth is misconfigured, does not grant subauth.bypass
+    default: op
