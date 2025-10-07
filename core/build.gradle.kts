@@ -24,5 +24,7 @@ tasks.build {
 }
 
 java {
-    toolchain.languageVersion.set(JavaLanguageVersion.of(7))
+    if (!providers.gradleProperty("modernBuild").isPresent) {
+        toolchain.languageVersion.set(JavaLanguageVersion.of(7))
+    }
 }
