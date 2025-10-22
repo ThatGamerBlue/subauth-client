@@ -8,6 +8,6 @@ To build this project, you will need:
 
 \- OR -
 - A copy of Java 21 to run Gradle with.
-- You will need to pass -DmodernBuild to Gradle, to use Java 21 to build all subprojects 
+- You will need to pass -PmodernBuild to Gradle, to use Java 21 to build all subprojects 
 
 // todo: make this worth reading
