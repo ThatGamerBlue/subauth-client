@@ -2,6 +2,7 @@ package com.thatgamerblue.subauth.core;
 
 import com.thatgamerblue.subauth.core.api.IConfiguration;
 import com.thatgamerblue.subauth.core.api.IWrappedPlayer;
+import com.thatgamerblue.subauth.core.api.ILogConsumer;
 import com.thatgamerblue.subauth.core.util.Strings;
 import com.thatgamerblue.subauth.core.ws.WSClient;
 import com.thatgamerblue.subauth.core.ws.messages.subscriptions.Subscription;
@@ -12,26 +13,24 @@ import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.logging.Logger;
 
 public class WhitelistManager {
-	private static final Logger logger = Logger.getLogger("SubAuth");
-
 	private final Map<Subscription, List<UUID>> whitelistedPlayers = new ConcurrentHashMap<>();
 
 	private Set<UUID> fastCheckWhitelist = new HashSet<>();
 	private WSClient wsClient;
 	private IConfiguration config;
 	private boolean notConfigured;
+	private final ILogConsumer logger;
 
-	public WhitelistManager(IConfiguration config) {
+	public WhitelistManager(IConfiguration config, ILogConsumer logger) {
 		this.config = config;
 		this.notConfigured = config.getTokens().contains("token1");
+		this.logger = logger;
 	}
 
 	public void checkConfiguredConnect() {
 		if (notConfigured) {
-			Logger logger = Logger.getLogger("SubAuth");
 			logger.severe("=====================================================");
 			logger.severe("SubAuth needs to be configured before you can use it!");
 			logger.severe("");

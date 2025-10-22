@@ -3,7 +3,7 @@ Prerequisites
 ---
 To build this project, you will need:
 - A copy of Java 7 where Gradle can find it, usually %home%/.jdks
-- A copy of Java 8 where Gradle can find it.
+- A copy of Java 11 where Gradle can find it.
 - A copy of Java 21 to run Gradle with.
 
 \- OR -

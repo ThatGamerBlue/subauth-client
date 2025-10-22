@@ -3,11 +3,13 @@ package com.thatgamerblue.subauth.plugin;
 import com.thatgamerblue.subauth.core.WhitelistManager;
 import com.thatgamerblue.subauth.core.api.IConfiguration;
 import com.thatgamerblue.subauth.plugin.impl.ConfigWrapper;
+import com.thatgamerblue.subauth.plugin.impl.LogWrapper;
 import com.thatgamerblue.subauth.plugin.impl.PlayerWrapper;
 import org.bukkit.ChatColor;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
+import java.util.logging.Logger;
 
 public class SubAuthEventHandler implements Listener {
 	private final IConfiguration config;
@@ -15,7 +17,7 @@ public class SubAuthEventHandler implements Listener {
 
 	public SubAuthEventHandler(SubAuthPlugin plugin) {
 		this.config = new ConfigWrapper(plugin.getConfig());
-		this.whitelistManager = new WhitelistManager(config);
+		this.whitelistManager = new WhitelistManager(config, new LogWrapper());
 
 		whitelistManager.checkConfiguredConnect();
 	}
