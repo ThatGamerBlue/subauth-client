@@ -29,4 +29,6 @@ tasks.shadowJar {
     relocate("org.json", "com.thatgamerblue.json")
 
     archiveBaseName = "subauth-" + project.name
+
+	archiveClassifier = ""
 }
