@@ -7,11 +7,13 @@ import org.apache.logging.log4j.Logger;
 
 public class SubAuthMod implements DedicatedServerModInitializer {
 	public static final Logger LOGGER = LogManager.getLogger("SubAuth");
+	public static PlayerJoinEventListener eventHandler;
 
 	@Override
 	public void onInitializeServer() {
-		LOGGER.info("SubAuth mod loaded");
+		eventHandler = new PlayerJoinEventListener();
+		ServerPlayConnectionEvents.JOIN.register(eventHandler);
 
-		ServerPlayConnectionEvents.JOIN.register(new PlayerJoinEventListener());
+		LOGGER.info("SubAuth mod loaded");
 	}
 }

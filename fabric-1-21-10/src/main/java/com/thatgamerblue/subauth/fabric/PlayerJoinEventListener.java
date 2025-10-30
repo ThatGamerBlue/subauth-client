@@ -12,6 +12,8 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerGamePacketListenerImpl;
+import net.minecraft.server.players.NameAndId;
+import net.minecraft.server.players.PlayerList;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
@@ -31,13 +33,17 @@ public class PlayerJoinEventListener implements ServerPlayConnectionEvents.Join 
 		whitelistManager.checkConfiguredConnect();
 	}
 
+	public Component checkWhitelistHook(PlayerList list, NameAndId player) {
+		PlayerWrapper playerWrapper = new PlayerWrapper(list, player);
+		if (!whitelistManager.isAllowedToJoin(playerWrapper)) {
+			return Component.literal(config.getDisallowMessage());
+		}
+		return null;
+	}
+
 	@Override
 	public void onPlayReady(ServerGamePacketListenerImpl handler, PacketSender sender, MinecraftServer server) {
-		PlayerWrapper playerWrapper = new PlayerWrapper(server, handler.player);
-		if (!whitelistManager.isAllowedToJoin(playerWrapper)) {
-			handler.disconnect(Component.literal(config.getDisallowMessage()));
-			return;
-		}
+		PlayerWrapper playerWrapper = new PlayerWrapper(server.getPlayerList(), handler.player.nameAndId());
 		if (whitelistManager.shouldSendNotConfiguredMessage(playerWrapper)) {
 			Component message = Component.literal("[SubAuth] SubAuth has not been properly configured, and will not allow users to join! Please check the config file.").withStyle(ChatFormatting.DARK_RED);
 			handler.player.sendSystemMessage(message, false);

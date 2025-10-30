@@ -2,34 +2,33 @@ package com.thatgamerblue.subauth.fabric.impl;
 
 import com.thatgamerblue.subauth.core.api.IWrappedPlayer;
 import lombok.RequiredArgsConstructor;
-import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.players.NameAndId;
+import net.minecraft.server.players.PlayerList;
 import java.util.UUID;
 
 @RequiredArgsConstructor
 public class PlayerWrapper implements IWrappedPlayer {
-	private final MinecraftServer server;
-	private final ServerPlayer player;
+	private final PlayerList playerList;
+	private final NameAndId player;
 
 	@Override
 	public UUID getUUID() {
-		return player.getUUID();
+		return player.id();
 	}
 
 	@Override
 	public String getName() {
-		return player.getDisplayName().getString();
+		return player.name();
 	}
 
 	@Override
 	public boolean isOp() {
-		return player.getPermissionLevel() >= 2;
+		return playerList.getOps().get(player) != null;
 	}
 
 	@Override
 	public boolean isWhitelisted() {
-		return server.getPlayerList().getWhiteList().isWhiteListed(player.nameAndId());
+		return playerList.getWhiteList().isWhiteListed(player);
 	}
 
 	@Override
