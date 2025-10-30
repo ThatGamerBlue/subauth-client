@@ -1,6 +1,7 @@
 package com.thatgamerblue.subauth.fabric;
 
 import net.fabricmc.api.DedicatedServerModInitializer;
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -13,6 +14,7 @@ public class SubAuthMod implements DedicatedServerModInitializer {
 	public void onInitializeServer() {
 		eventHandler = new PlayerJoinEventListener();
 		ServerPlayConnectionEvents.JOIN.register(eventHandler);
+		ServerLifecycleEvents.SERVER_STOPPED.register(eventHandler);
 
 		LOGGER.info("SubAuth mod loaded");
 	}

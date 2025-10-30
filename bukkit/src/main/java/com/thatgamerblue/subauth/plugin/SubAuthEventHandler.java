@@ -50,4 +50,8 @@ public class SubAuthEventHandler implements Listener {
 			suppressQuitMessage.remove(event.getPlayer().getUniqueId());
 		}
 	}
+
+	public void shutdown() {
+		whitelistManager.shutdown();
+	}
 }

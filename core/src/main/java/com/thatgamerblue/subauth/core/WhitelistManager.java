@@ -93,6 +93,13 @@ public class WhitelistManager {
 		}
 	}
 
+	public void shutdown() {
+		if (this.wsClient != null) {
+			this.wsClient.setShouldReconnect(false);
+			this.wsClient.close();
+		}
+	}
+
 	public void reloadConfiguration(IConfiguration config) {
 		this.config = config;
 		this.notConfigured = config.getTokens().contains("token1");

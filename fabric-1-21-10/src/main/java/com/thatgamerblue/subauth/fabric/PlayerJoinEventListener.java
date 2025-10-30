@@ -5,6 +5,7 @@ import com.thatgamerblue.subauth.core.WhitelistManager;
 import com.thatgamerblue.subauth.fabric.impl.ConfigWrapper;
 import com.thatgamerblue.subauth.fabric.impl.LogWrapper;
 import com.thatgamerblue.subauth.fabric.impl.PlayerWrapper;
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import net.fabricmc.loader.api.FabricLoader;
@@ -20,7 +21,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 
-public class PlayerJoinEventListener implements ServerPlayConnectionEvents.Join {
+public class PlayerJoinEventListener implements ServerPlayConnectionEvents.Join, ServerLifecycleEvents.ServerStopped {
 	private static final Path CONFIG_FILE = FabricLoader.getInstance().getConfigDir().resolve("subauth.json");
 	private static final Gson GSON = new Gson();
 	private final WhitelistManager whitelistManager;
@@ -48,6 +49,11 @@ public class PlayerJoinEventListener implements ServerPlayConnectionEvents.Join 
 			Component message = Component.literal("[SubAuth] SubAuth has not been properly configured, and will not allow users to join! Please check the config file.").withStyle(ChatFormatting.DARK_RED);
 			handler.player.sendSystemMessage(message, false);
 		}
+	}
+
+	@Override
+	public void onServerStopped(MinecraftServer minecraftServer) {
+		whitelistManager.shutdown();
 	}
 
 	private void loadConfig() {

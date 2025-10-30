@@ -12,7 +12,7 @@
 		"sources": "https://github.com/ThatGamerBlue/subauth-multi"
 	},
 	"license": "AGPL-v3",
-	"environment": "*",
+	"environment": "server",
 	"entrypoints": {
 		"server": [
 			"com.thatgamerblue.subauth.fabric.SubAuthMod"
