@@ -36,6 +36,7 @@ public class WSClient extends WebSocketClient {
 
 	public WSClient(WhitelistManager whitelistManager, IConfiguration config, WSClient oldClient) {
 		super(URI.create("wss://" + config.getWsHost() + ":" + config.getWsPort() + "/ws"));
+		setDaemon(true);
 		this.whitelistManager = whitelistManager;
 		this.config = config;
 		this.invalidTokens = oldClient == null ? new ArrayList<String>() : oldClient.getInvalidTokens();
