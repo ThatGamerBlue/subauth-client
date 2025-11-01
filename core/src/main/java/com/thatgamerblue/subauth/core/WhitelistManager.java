@@ -83,20 +83,18 @@ public class WhitelistManager {
 	}
 
 	public void wsConnect() {
-		if (this.wsClient == null || this.wsClient.isShouldReconnect()) {
-			if (this.wsClient != null) {
-				this.wsClient.setShouldReconnect(false);
-				this.wsClient.close();
-			}
-			this.wsClient = new WSClient(this, config, this.wsClient);
+		if (this.wsClient == null) {
+			this.wsClient = new WSClient(this, config, logger);
 			wsClient.connect();
+		} else if (wsClient.isShouldReconnect()) {
+			this.wsClient.reconnect();
 		}
 	}
 
 	public void shutdown() {
 		if (this.wsClient != null) {
-			this.wsClient.setShouldReconnect(false);
-			this.wsClient.close();
+			this.wsClient.shutdown();
+			this.wsClient = null;
 		}
 	}
 

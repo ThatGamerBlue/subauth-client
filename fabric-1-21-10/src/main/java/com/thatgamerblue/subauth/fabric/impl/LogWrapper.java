@@ -8,12 +8,14 @@ public class LogWrapper implements ILogConsumer {
 	public static final Logger LOGGER = LogManager.getLogger("SubAuth");
 
 	@Override
-	public void info(String message) {
-		LOGGER.info(message);
+	public void info(String message, Object... fmt) {
+		//noinspection StringConcatenationArgumentToLogCall
+		LOGGER.info("[SubAuth] " + message, fmt);
 	}
 
 	@Override
-	public void severe(String message) {
-		LOGGER.error(message);
+	public void severe(String message, Object... fmt) {
+		//noinspection StringConcatenationArgumentToLogCall
+		LOGGER.error("[SubAuth] " + message, fmt);
 	}
 }
