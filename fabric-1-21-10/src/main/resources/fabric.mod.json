@@ -9,9 +9,9 @@
 	],
 	"contact": {
 		"homepage": "https://subauth.thatgamerblue.com",
-		"sources": "https://github.com/ThatGamerBlue/subauth-multi"
+		"sources": "https://github.com/ThatGamerBlue/subauth-client"
 	},
-	"license": "AGPL-v3",
+	"license": "AGPL-3.0-only",
 	"environment": "server",
 	"entrypoints": {
 		"server": [
