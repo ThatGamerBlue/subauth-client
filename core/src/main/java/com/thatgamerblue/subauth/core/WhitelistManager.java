@@ -27,6 +27,7 @@ public class WhitelistManager {
 		this.config = config;
 		this.notConfigured = config.getTokens().contains("token1");
 		this.logger = logger;
+		printLicense();
 	}
 
 	public void checkConfiguredConnect() {
@@ -111,5 +112,10 @@ public class WhitelistManager {
 			newSet.addAll(list);
 		}
 		fastCheckWhitelist = newSet;
+	}
+
+	private void printLicense() {
+		logger.info("SubAuth is software licensed under AGPLv3. Contributions are welcome!");
+		logger.info("The source code for SubAuth is at https://github.com/ThatGamerBlue/subauth");
 	}
 }
