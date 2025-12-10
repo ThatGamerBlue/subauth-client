@@ -32,3 +32,7 @@ tasks.shadowJar {
 
 	archiveClassifier = ""
 }
+
+tasks.register("distJar") {
+    outputs.files(tasks.shadowJar.get().outputs.files)
+}

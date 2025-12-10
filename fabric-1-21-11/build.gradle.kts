@@ -6,7 +6,7 @@ plugins {
     val loom_version = "1.14-SNAPSHOT"
     id("java")
     id("io.freefair.lombok") version "8.14"
-    id("fabric-loom") version loom_version
+    id("net.fabricmc.fabric-loom-remap") version loom_version
 }
 
 base {
@@ -48,4 +48,9 @@ java {
 
 tasks.jar {
     inputs.property("archivesName", project.base.archivesName)
+}
+
+tasks.register("distJar") {
+    dependsOn(tasks.build)
+    outputs.file("${project.layout.buildDirectory.get()}/libs/${base.archivesName.get()}-${version}.jar")
 }
