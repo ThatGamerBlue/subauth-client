@@ -1,9 +1,9 @@
-val minecraft_version: String = "1.21.10"
-val loader_version: String = "0.17.3"
-val fabric_version: String = "0.136.0+1.21.10"
+val minecraft_version: String = "1.21.11"
+val loader_version: String = "0.18.2"
+val fabric_version: String = "0.139.4+1.21.11"
 
 plugins {
-    val loom_version = "1.11-SNAPSHOT"
+    val loom_version = "1.14-SNAPSHOT"
     id("java")
     id("io.freefair.lombok") version "8.14"
     id("fabric-loom") version loom_version
