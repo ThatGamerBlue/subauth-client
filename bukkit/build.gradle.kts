@@ -71,3 +71,12 @@ modrinth {
     gameVersions.addAll(getMinecraftVersions())
     loaders.addAll("paper", "purpur", "spigot", "bukkit")
 }
+
+tasks.processResources {
+    val props = mapOf(Pair("version", version))
+    inputs.properties(props)
+    filteringCharset = "UTF-8"
+    filesMatching("plugin.yml") {
+        expand(props)
+    }
+}

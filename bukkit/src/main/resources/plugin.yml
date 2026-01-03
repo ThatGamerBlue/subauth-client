@@ -1,6 +1,6 @@
 main: com.thatgamerblue.subauth.plugin.SubAuthPlugin
 name: SubAuth
-version: 1.0
+version: '${version}'
 description: SubAuth for Twitch account linking
 
 permissions:
