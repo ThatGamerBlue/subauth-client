@@ -1,3 +1,5 @@
+import com.modrinth.minotaur.Minotaur
+
 val minecraft_version: String = "1.21.11"
 val loader_version: String = "0.18.2"
 val fabric_version: String = "0.139.4+1.21.11"
@@ -7,6 +9,7 @@ plugins {
     id("java")
     id("io.freefair.lombok") version "8.14"
     id("net.fabricmc.fabric-loom-remap") version loom_version
+    id("com.modrinth.minotaur") version "2.+"
 }
 
 base {
@@ -50,7 +53,25 @@ tasks.jar {
     inputs.property("archivesName", project.base.archivesName)
 }
 
-tasks.register("distJar") {
+var distJarTask: Task = tasks.register("distJar") {
+    distJarTask = this
     dependsOn(tasks.build)
     outputs.file("${project.layout.buildDirectory.get()}/libs/${base.archivesName.get()}-${version}.jar")
+}.get()
+
+tasks.modrinth {
+    dependsOn(distJarTask)
+}
+
+modrinth {
+    token = System.getenv("MODRINTH_TOKEN")
+    projectId = System.getenv("MODRINTH_PROJECT") ?: "subauth"
+    versionName = "${project.version} Fabric $minecraft_version"
+    versionType = if ((project.version as String).contains("SNAPSHOT")) "beta" else "release"
+    uploadFile = distJarTask.outputs.files.first()
+    gameVersions.addAll(minecraft_version)
+    loaders.addAll("fabric", "quilt")
+    dependencies {
+        required.project("fabric-api")
+    }
 }
