@@ -2,7 +2,7 @@ plugins {
 }
 
 group = "com.thatgamerblue.subauth"
-version = "1.7"
+version = "1.7.1"
 
 repositories {
     mavenCentral()
