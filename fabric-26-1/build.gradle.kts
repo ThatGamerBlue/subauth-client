@@ -1,6 +1,7 @@
 import com.modrinth.minotaur.Minotaur
 
 val minecraft_version: String = "26.1"
+val supported_minecraft_versions: List<String> = listOf(minecraft_version)
 val loader_version: String = "0.18.4"
 val fabric_version: String = "0.144.0+26.1"
 
@@ -68,7 +69,7 @@ modrinth {
     versionName = "${project.version} Fabric $minecraft_version"
     versionType = if ((project.version as String).contains("SNAPSHOT")) "beta" else "release"
     uploadFile = distJarTask.outputs.files.first()
-    gameVersions.addAll(minecraft_version)
+    gameVersions.addAll(supported_minecraft_versions)
     loaders.addAll("fabric", "quilt")
     dependencies {
         required.project("fabric-api")
