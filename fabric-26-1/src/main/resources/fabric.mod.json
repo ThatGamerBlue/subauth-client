@@ -1,0 +1,30 @@
+{
+	"schemaVersion": 1,
+	"id": "subauth",
+	"version": "${version}",
+	"name": "SubAuth",
+	"description": "SubAuth mod for authenticating game servers.",
+	"authors": [
+		"ThatGamerBlue"
+	],
+	"contact": {
+		"homepage": "https://subauth.thatgamerblue.com",
+		"sources": "https://github.com/ThatGamerBlue/subauth-client"
+	},
+	"license": "AGPL-3.0-only",
+	"environment": "server",
+	"entrypoints": {
+		"server": [
+			"com.thatgamerblue.subauth.fabric.SubAuthMod"
+		]
+	},
+	"mixins": [
+		"subauth.mixins.json"
+	],
+	"depends": {
+		"fabricloader": ">=0.18.2",
+		"minecraft": "1.21.11",
+		"java": ">=21",
+		"fabric": "*"
+	}
+}
