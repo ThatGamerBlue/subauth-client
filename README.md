@@ -7,8 +7,8 @@ To build this project, you will need:
 - A copy of Java 25 to run Gradle with.
 
 \- OR -
-- A copy of Java 21 to run Gradle with.
-- You will need to pass -PmodernBuild to Gradle, to use Java 21 to build all subprojects 
+- A copy of Java 25 to run Gradle with.
+- You will need to pass -PmodernBuild to Gradle, to use Java 25 to build all subprojects 
 
 Backports
 ---
