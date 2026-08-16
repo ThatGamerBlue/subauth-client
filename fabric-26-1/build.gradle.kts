@@ -1,15 +1,14 @@
 import com.modrinth.minotaur.Minotaur
 
 val minecraft_version: String = "26.1"
-val supported_minecraft_versions: List<String> = listOf(minecraft_version)
+val supported_minecraft_versions: List<String> = listOf(minecraft_version, "26.1.1", "26.1.2")
 val loader_version: String = "0.18.4"
 val fabric_version: String = "0.144.0+26.1"
 
 plugins {
-    val loom_version = "1.15-SNAPSHOT"
     id("java")
     id("io.freefair.lombok") version "8.14"
-    id("net.fabricmc.fabric-loom") version loom_version
+    id("net.fabricmc.fabric-loom")
     id("com.modrinth.minotaur") version "2.+"
 }
 
@@ -37,9 +36,15 @@ dependencies {
 
 tasks.processResources {
     inputs.property("version", project.version)
+    inputs.property("mcVersion", minecraft_version)
+    inputs.property("fabricLoader", loader_version)
 
     filesMatching("fabric.mod.json") {
-        expand(mapOf(Pair("version", inputs.properties["version"])))
+        expand(mapOf(
+            Pair("version", inputs.properties["version"]),
+            Pair("mcVersion", inputs.properties["mcVersion"]),
+            Pair("fabricLoader", inputs.properties["fabricLoader"])
+        ))
     }
 }
 

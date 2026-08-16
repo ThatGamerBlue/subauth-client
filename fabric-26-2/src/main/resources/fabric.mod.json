@@ -22,8 +22,8 @@
 		"subauth.mixins.json"
 	],
 	"depends": {
-      "fabricloader": ">=${fabricLoader}",
-      "minecraft": "~${mcVersion}",
+		"fabricloader": ">=${fabricLoader}",
+		"minecraft": "~${mcVersion}",
 		"java": ">=25",
 		"fabric-api": "*"
 	}

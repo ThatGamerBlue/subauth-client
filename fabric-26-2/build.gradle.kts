@@ -1,13 +1,14 @@
 import com.modrinth.minotaur.Minotaur
 
-val minecraft_version: String = "1.21.11"
-val loader_version: String = "0.18.2"
-val fabric_version: String = "0.139.4+1.21.11"
+val minecraft_version: String = "26.2"
+val supported_minecraft_versions: List<String> = listOf(minecraft_version)
+val loader_version: String = "0.19.3"
+val fabric_version: String = "0.157.0+26.2"
 
 plugins {
     id("java")
     id("io.freefair.lombok") version "8.14"
-    id("net.fabricmc.fabric-loom-remap")
+    id("net.fabricmc.fabric-loom")
     id("com.modrinth.minotaur") version "2.+"
 }
 
@@ -27,24 +28,29 @@ dependencies {
     include("com.googlecode.json-simple:json-simple:1.1.1")
 
     minecraft("com.mojang:minecraft:${minecraft_version}")
-    mappings(loom.officialMojangMappings())
-    modImplementation("net.fabricmc:fabric-loader:${loader_version}")
+    implementation("net.fabricmc:fabric-loader:${loader_version}")
 
     // Fabric API. This is technically optional, but you probably want it anyway.
-    modImplementation("net.fabricmc.fabric-api:fabric-api:${fabric_version}")
+    implementation("net.fabricmc.fabric-api:fabric-api:${fabric_version}")
 }
 
 tasks.processResources {
     inputs.property("version", project.version)
+    inputs.property("mcVersion", minecraft_version)
+    inputs.property("fabricLoader", loader_version)
 
     filesMatching("fabric.mod.json") {
-        expand(mapOf(Pair("version", inputs.properties["version"])))
+        expand(mapOf(
+            Pair("version", inputs.properties["version"]),
+            Pair("mcVersion", inputs.properties["mcVersion"]),
+            Pair("fabricLoader", inputs.properties["fabricLoader"])
+        ))
     }
 }
 
 java {
     if (!providers.gradleProperty("modernBuild").isPresent) {
-        toolchain.languageVersion.set(JavaLanguageVersion.of(21))
+        toolchain.languageVersion.set(JavaLanguageVersion.of(25))
     }
 }
 
@@ -68,7 +74,7 @@ modrinth {
     versionName = "${project.version} Fabric $minecraft_version"
     versionType = if ((project.version as String).contains("SNAPSHOT")) "beta" else "release"
     uploadFile = distJarTask.outputs.files.first()
-    gameVersions.addAll(minecraft_version)
+    gameVersions.addAll(supported_minecraft_versions)
     loaders.addAll("fabric", "quilt")
     dependencies {
         required.project("fabric-api")
