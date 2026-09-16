@@ -1,0 +1,6 @@
+{
+	"package": "com.thatgamerblue.subauth.fabric.mixin",
+	"server": [
+		"PlayerListMixin"
+	]
+}

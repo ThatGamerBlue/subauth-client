@@ -1,0 +1,10 @@
+{
+  "subauth_host": "subauth.thatgamerblue.com",
+  "subauth_port": 443,
+  "disallow_message": "This server is protected by SubAuth. You must be a subscriber to join this server.",
+  "tokens": [
+    "token1",
+    "token2",
+    "etc"
+  ]
+}
